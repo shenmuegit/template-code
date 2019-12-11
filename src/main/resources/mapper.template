@@ -1,0 +1,8 @@
+package com.ehualu.calabash.biz.mapper.{lowerCaseTableName};
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ehualu.calabash.biz.model.{lowerCaseTableName}.{upperCaseTableName};
+
+public interface {upperCaseTableName}Mapper extends BaseMapper<{upperCaseTableName}> {
+
+}

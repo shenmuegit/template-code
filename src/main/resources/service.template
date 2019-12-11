@@ -1,0 +1,20 @@
+package com.ehualu.calabash.biz.service.{lowerCaseTableName};
+
+import com.ehualu.calabash.biz.vo.{lowerCaseTableName}.{upperCaseTableName}Vo;
+import com.ehualu.calabash.core.result.Result;
+
+public interface {upperCaseTableName}Service  {
+
+    Result select{upperCaseTableName}Details({upperCaseTableName}Vo param);
+
+    Result select{upperCaseTableName}List({upperCaseTableName}Vo param);
+
+    Result select{upperCaseTableName}Page({upperCaseTableName}Vo param);
+
+    Result update{upperCaseTableName}({upperCaseTableName}Vo param);
+
+    Result del{upperCaseTableName}({upperCaseTableName}Vo param);
+
+    Result insert{upperCaseTableName}({upperCaseTableName}Vo param);
+
+}

@@ -1,0 +1,9 @@
+package com.ehualu.calabash.biz.vo.{lowerCaseTableName};
+
+import com.ehualu.calabash.biz.vo.PageVo;
+import java.sql.Date;
+import lombok.Data;
+
+@Data
+public class {upperCaseTableName}Vo extends PageVo {
+}

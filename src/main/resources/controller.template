@@ -1,0 +1,49 @@
+package com.bbd.tourism.{serviceName}.controller;
+
+import com.ehualu.calabash.biz.constants.ApiConsts;
+import com.ehualu.calabash.biz.service.{lowerCaseTableName}.{upperCaseTableName}Service;
+import com.ehualu.calabash.biz.vo.{lowerCaseTableName}.{upperCaseTableName}Vo;
+import com.ehualu.calabash.core.result.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = ApiConsts.)
+public class {upperCaseTableName}Controller {
+
+    @Autowired
+    private {upperCaseTableName}Service {lowerCaseTableName}Service;
+
+    @PostMapping( value = ApiConsts.)
+    public Result select{upperCaseTableName}Details(@RequestBody {upperCaseTableName}Vo param) {
+        return {lowerCaseTableName}Service.select{upperCaseTableName}Details(param);
+    }
+
+    @PostMapping( value = ApiConsts.)
+    public Result select{upperCaseTableName}List(@RequestBody {upperCaseTableName}Vo param) {
+        return {lowerCaseTableName}Service.select{upperCaseTableName}List(param);
+    }
+
+    @PostMapping( value = ApiConsts.)
+    public Result select{upperCaseTableName}Page(@RequestBody {upperCaseTableName}Vo param) {
+        return {lowerCaseTableName}Service.select{upperCaseTableName}Page(param);
+    }
+
+    @PostMapping( value = ApiConsts.)
+    public Result update{upperCaseTableName}(@RequestBody {upperCaseTableName}Vo param) {
+        return {lowerCaseTableName}Service.update{upperCaseTableName}(param);
+    }
+
+    @PostMapping( value = ApiConsts.)
+    public Result del{upperCaseTableName}(@RequestBody {upperCaseTableName}Vo param) {
+        return {lowerCaseTableName}Service.del{upperCaseTableName}(param);
+    }
+
+    @PostMapping( value = ApiConsts.)
+    public Result insert{upperCaseTableName}(@RequestBody {upperCaseTableName}Vo param) {
+        return {lowerCaseTableName}Service.insert{upperCaseTableName}(param);
+    }
+}
