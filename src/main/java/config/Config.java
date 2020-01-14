@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Config {
 
-    private static final String CONFIG_PATH = "config.properties";
+    private static final String CONFIG_PATH = "templateCode/config.properties";
 
     private static final String SAVE_PATH = "file.savePath";
 

@@ -1,0 +1,68 @@
+package com.ehualu.calabash.biz.service.{lowerCaseTableName}.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.ehualu.calabash.biz.service.{lowerCaseTableName}.{upperCaseTableName}Service;
+import com.ehualu.calabash.biz.vo.{lowerCaseTableName}.{upperCaseTableName}Vo;
+import com.ehualu.calabash.core.result.Result;
+import com.ehualu.calabash.core.utils.JsonUtil;
+import com.ehualu.calabash.biz.model.{lowerCaseTableName}.{upperCaseTableName};
+import com.ehualu.calabash.biz.mapper.{lowerCaseTableName}.{upperCaseTableName}Mapper;
+import com.ehualu.calabash.util.PageUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class {upperCaseTableName}Service {
+
+    @Autowired
+    private {upperCaseTableName}Mapper {lowerCaseTableName}Mapper;
+
+    @Override
+    public Result select{upperCaseTableName}Details({upperCaseTableName}Vo param) {
+        {upperCaseTableName} {lowerCaseTableName} = {lowerCaseTableName}Mapper.selectById(param.getId());
+        return Result.success({lowerCaseTableName});
+    }
+
+    @Override
+    public Result select{upperCaseTableName}List({upperCaseTableName}Vo param) {
+        {upperCaseTableName} {lowerCaseTableName} = JsonUtil.convert(param,{upperCaseTableName}.class);
+        QueryWrapper<{upperCaseTableName}> {lowerCaseTableName}Wrapper = Wrappers.query({lowerCaseTableName});
+        List<{upperCaseTableName}> {lowerCaseTableName}s = {lowerCaseTableName}Mapper.selectList({lowerCaseTableName}Wrapper);
+        return Result.success({lowerCaseTableName}s);
+    }
+
+    @Override
+    public Result select{upperCaseTableName}Page({upperCaseTableName}Vo param) {
+        IPage<{upperCaseTableName}> page = PageUtil.initPage(param);
+        {upperCaseTableName} {lowerCaseTableName} = JsonUtil.convert(param,{upperCaseTableName}.class);
+        QueryWrapper<{upperCaseTableName}> {lowerCaseTableName}Wrapper = Wrappers.query({lowerCaseTableName});
+        page = {lowerCaseTableName}Mapper.selectPage(page,{lowerCaseTableName}Wrapper);
+        return Result.successPage(page);
+    }
+
+    @Override
+    public Result update{upperCaseTableName}({upperCaseTableName}Vo param) {
+        {upperCaseTableName} {lowerCaseTableName} = JsonUtil.convert(param,{upperCaseTableName}.class);
+        int res = {lowerCaseTableName}Mapper.updateById({lowerCaseTableName});
+        return Result.success(res);
+    }
+
+    @Override
+    public Result del{upperCaseTableName}({upperCaseTableName}Vo param) {
+        {upperCaseTableName} {lowerCaseTableName} = JsonUtil.convert(param,{upperCaseTableName}.class);
+        int res = {lowerCaseTableName}Mapper.deleteById({lowerCaseTableName});
+        return Result.success(res);
+    }
+
+    @Override
+    public Result insert{upperCaseTableName}({upperCaseTableName}Vo param) {
+        {upperCaseTableName} {lowerCaseTableName} = JsonUtil.convert(param,{upperCaseTableName}.class);
+        int res = {lowerCaseTableName}Mapper.insert({lowerCaseTableName});
+        return Result.success(res);
+    }
+
+}

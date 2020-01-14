@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>bbcat.util</groupId>
-    <artifactId>bbcat.util.sbcode.template</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>template-code</artifactId>
+    <version>1.0</version>
 
     <dependencies>
 

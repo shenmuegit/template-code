@@ -43,12 +43,14 @@ public class Template {
         put("datetime","Date");
         put("int","Integer");
         put("double","Double");
+        put("char","String");
+        put("text","String");
     }};
 
     /**
      * 模板配置文件名
      */
-    private static final String CONFIG_PATH = "templateKey.properties";
+    private static final String CONFIG_PATH = "templateCode/templateKey.properties";
 
     private static final Properties PROP = new Properties();
 
@@ -66,6 +68,8 @@ public class Template {
 
     private static final String FILL = "_fill";
 
+    private static final String IGNORE_TABLE_PREFIX = "ignoreTablePrefix";
+
     static{
         try {
             InputStreamReader in = new InputStreamReader(Config.class.getClassLoader().getResourceAsStream(CONFIG_PATH),"UTF-8");
@@ -81,6 +85,7 @@ public class Template {
         initTemplate();
         templateValueReplaceAndSave(TEMPLATE);
         templateValueReplaceAndSave(TEMPLATE_BEAN);
+        updateTableToUpper(TEMPLATE_KEY.get(Template.TABLE));
     }
 
     private static void initTemplateKey() throws IOException {
@@ -112,13 +117,12 @@ public class Template {
 
     /**
      * 生成模板
-     * @throws IOException 暂时io异常
      */
-    private static void initTemplate() throws IOException {
+    private static void initTemplate() {
         for (String key : TEMPLATE_PATH.keySet()) {
             InputStreamReader in = null;
             try {
-                in = new InputStreamReader(Config.class.getClassLoader().getResourceAsStream(key.trim().replace(FILL,"") + ".template"),"UTF-8");
+                in = new InputStreamReader(Config.class.getClassLoader().getResourceAsStream("templateCode/" + key.trim().replace(FILL,"") + ".template"),"UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(in);
                 String value;
                 StringBuilder sbu = new StringBuilder();
@@ -171,6 +175,9 @@ public class Template {
                     key.equals(SERVICE_NAME)){
                 return value;
             }
+            if(key.equals(IGNORE_TABLE_PREFIX)){
+                return StringUtil.upperCaseOrLowerCaseTable(value,1);
+            }
         }
         return null;
     }
@@ -191,6 +198,7 @@ public class Template {
             if(key.endsWith(FILL)){
                 value = fillVoDo(value);
             }
+            value = value.replace(TEMPLATE_KEY.get(IGNORE_TABLE_PREFIX),"");
             save(key,value);
         }
     }
@@ -218,14 +226,14 @@ public class Template {
             key = key.replace(FILL,"");
         }
 
-        String fileName = null;
+        String fileName;
         if(key.equals("entity")){
             fileName = TEMPLATE_KEY.get(UPPER_CASE_TABLE_NAME);
         }else{
             fileName = TEMPLATE_KEY.get(UPPER_CASE_TABLE_NAME) + key.substring(0,1).toUpperCase() + key.substring(1);
         }
         FileUtil.createFile(
-                fileName,
+                fileName.replace(TEMPLATE_KEY.get(IGNORE_TABLE_PREFIX),""),
                 Config.getSavePath() + savePath,
                 template);
     }
@@ -249,6 +257,23 @@ public class Template {
         StringBuilder template = new StringBuilder(value);
         template.insert(location + 1,"\n\n" + field.toString());
         return template.toString();
+    }
+
+    private static void updateTableToUpper(String table){
+        String sql = JdbcUtil.getCreateTableSql(Config.driver,Config.url,Config.username,Config.password,table);
+        String[] sqls = sql.split("`");
+        for (int i = 3; i < sqls.length-1; i = i+2) {
+            sqls[i] = sqls[i].replaceAll("_","").toUpperCase();
+        }
+        JdbcUtil.delTable(Config.driver,Config.url,Config.username,Config.password,table);
+        String tempSql = "";
+        for (int i = 0; i < sqls.length; i++) {
+            tempSql += sqls[i] + "`";
+        }
+        tempSql = tempSql.substring(0,tempSql.length()-1) + ";";
+        JdbcUtil.runSql(Config.driver,Config.url,Config.username,Config.password,tempSql);
+        /*将的*/
+        System.out.println();
     }
 
 }
